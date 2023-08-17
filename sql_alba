@@ -1,0 +1,20 @@
+-- cuantos pedidos hay de cada país
+-- debe ser UK 3, USA 2, UAE 0
+select c.country, sum(o.num_pedidos)
+from customers c
+inner join (
+select customer_id, count(customer_id) as num_pedidos
+from orders
+group by customer_id 
+) o
+on o.customer_id = c.customer_id
+group by c.country
+
+-- los 3 mejores pedidos (de más precio a menos) y cuantos
+select
+amount, 
+count(amount)
+from orders
+group by amount
+order by amount desc
+limit 3
